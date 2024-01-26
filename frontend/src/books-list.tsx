@@ -8,8 +8,8 @@ export default function BooksList({
   mainList: BookProps[];
 }) {
   return (
-    <div className="max-w-md w-full bg-gray-100 rounded-xl p-4 ">
-      <div className="h-full flex flex-col gap-2">
+    <div className="max-w-2xl w-full  pb-20">
+      <div className="h-full flex flex-col gap-2 bg-gray-100 rounded-xl p-4">
         {(list.length ? list : mainList).map((book) => {
           return (
             <div className="bg-white p-2 rounded-lg">

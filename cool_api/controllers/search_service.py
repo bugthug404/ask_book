@@ -41,8 +41,6 @@ def add_books():
 
 def search_books():
     try:
-        print("searchBooks ==== got the request", request.args)
-        print("query == ", request.args.get("query"))
 
         client = QdrantClient("localhost", port=6333);
 
@@ -52,12 +50,6 @@ def search_books():
             limit=3,
         )
         payloads = [result.payload for result in search_result]
-
-
-        print("searchBooks ==== got the result", search_result)
-        # convert search_result to json
-        
-        
         return jsonify(payloads), 200
     except Exception as error:
         print("searchBooks error === ", error)
@@ -71,14 +63,3 @@ def all_books():
     except Exception as error:
         print("allBooks error === ", error)
         return jsonify(error=str(error)), 500
-
-
-# import openllm
-
-# client = openllm.client.HTTPClient('http://localhost:3000')
-# client.query('Explain to me the difference between "further" and "farther"')
-
-# def checkLLm():
-#     client = openllm.client.HTTPClient('http://localhost:3000')
-#     client.query('Explain to me the difference between "further" and "farther"')
-    

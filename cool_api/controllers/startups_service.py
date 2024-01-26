@@ -75,25 +75,23 @@ def search_startups():
     
 
 def startup_list():
-    
     try:
-        # retrun all the startups with 20 limit from the database
-        print("connecting ")
+        sample_sentence = "This is a sample sentence."
+        encoded_sentence = encoder.encode(sample_sentence)
+        print(len(encoded_sentence))
+        # print("models ==== got the request", models.__dict__)
         client = QdrantClient("localhost", port=6333)
-        print("client === ", client)
-        all_startups = client.scan_collection(collection_name=COLLECTION_NAME)
-        print("all startups === ", all_startups)
-        
-        limited_startups = list(itertools.islice(all_startups, 20))
-        print("limited startups === ", limited_startups)
-        payloads = [startup.payload for startup in limited_startups]
+        query = "0" * 384  # Replace dim with the dimension of your vectors
+        search_result = client.search(
+            collection_name=COLLECTION_NAME,
+            query_vector=encoder.encode(query).tolist(),
+            limit=10,  # Limit to 10 documents
+        )
+        payloads = [result.payload for result in search_result]
         return jsonify(payloads), 200
-        # return jsonify([]), 200
     except Exception as error:
-        print("allBooks error === ", error)
         return jsonify(error=str(error)), 500
-
-
+    
 class NeuralSearcher:
 
     def __init__(self, collection_name):

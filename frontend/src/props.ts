@@ -10,6 +10,6 @@ export interface StartupProps {
   description: string;
   alt: string;
   city: string;
-  image: string;
+  images: string;
   link: string;
 }
