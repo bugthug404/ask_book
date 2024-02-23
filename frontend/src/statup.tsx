@@ -8,7 +8,7 @@ import StartupList from "./startup-list";
 
 export default function Startup() {
   const buttonClass =
-    "mx-auto px-4 py-2 bg-blue-200 rounded-full cursor-pointer max-w-48 flex-none text-center";
+    " px-4 py-2 bg-blue-200 rounded-full cursor-pointer max-w-48 flex-none text-center";
   const [mailList, setMainList] = useState<StartupProps[]>([]);
   const [list, setList] = useState<StartupProps[]>([]);
   const [input, setInput] = useState<string>("");
@@ -40,11 +40,11 @@ export default function Startup() {
   return (
     <>
       <div className=" h-screen  flex flex-col gap-4 items-center p-4">
-        <div className="p-4 bg-gray-100 rounded-3xl max-w-2xl w-full flex gap-2">
+        {/* <div className="p-4 bg-gray-100 rounded-3xl max-w-2xl w-full flex gap-2">
           <div className={buttonClass} onClick={uploadData}>
             upload data
           </div>
-        </div>
+        </div> */}
         <div className="p-4 bg-gray-100 rounded-3xl max-w-2xl w-full flex flex-col  gap-2">
           <div className="flex gap-2">
             <input
@@ -77,8 +77,8 @@ export default function Startup() {
               Search Books
             </div>
           </div>
-          <div className="flex gap-2 items-center">
-            Example:
+          <div className="flex gap-2 items-center justify-start">
+            <span>Example:</span>
             <div
               className={`${buttonClass} px-2 w-fit mx-0`}
               onClick={() => {

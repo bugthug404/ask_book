@@ -116,3 +116,41 @@ class NeuralSearcher:
         # In this function we are interested in payload only
         payloads = [hit.payload for hit in search_result]
         return payloads    
+    
+    
+    
+
+def uploadpdf():
+    try:
+        client = QdrantClient("localhost", port=6333);
+
+        # client.set_model(EMBEDDINGS_MODEL)
+
+        vectors = np.load('/Users/k9966/Documents/My Projects/ask_book/cool_api/controllers/vectors.npy')
+        
+        fd = '/Users/k9966/Documents/My Projects/ask_book/cool_api/controllers/startups_demo.json'
+        
+        with open('/Users/k9966/Documents/My Projects/ask_book/cool_api/controllers/startups_demo.json', 'r') as f:
+            file_contents = f.read()
+            
+        payload = list(map(json.loads, file_contents.splitlines()))
+        
+        client.recreate_collection(
+            collection_name='startups', 
+            vectors_config=VectorParams(size=384, distance=Distance.COSINE),
+        )
+        result = client.upload_collection(
+                    collection_name='startups',
+                    vectors=vectors,
+                    payload=payload,
+                    ids=None,  # Vector ids will be assigned automatically
+                    batch_size=256  # How many vectors will be uploaded in a single request?
+                )
+
+
+        
+        return jsonify(result), 200
+    except Exception as error:
+        print("searchBooks error === ", error)
+        return jsonify(error=str(error)), 500
+    

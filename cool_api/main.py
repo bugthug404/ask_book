@@ -3,9 +3,6 @@ from flask_cors import CORS
 from datetime import datetime
 import os
 from dotenv import load_dotenv
-
-# Controllers
-# from controllers import qdrant_controller, search_controller
 from controllers import search_controller, startups_controller
 
 load_dotenv()
